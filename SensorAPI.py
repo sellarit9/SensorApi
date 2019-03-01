@@ -3,6 +3,12 @@ from datadog import initialize, api
 import time
 from random import randint
 
+class sensor:
+    def __init__(self, aLat, aLong, aLocation):
+        self.longitude = aLong
+        self.lat = aLat
+        self.location = aLocation
+
 api_key = "a6dd994468ec7c4cf1bfd263087a26c9"
 
 def brightnessMetric():
@@ -14,13 +20,19 @@ def brightnessMetric():
     print('Current Brightness['+str(metric)+']')
     return metric
 
-def tempMetric():
-    URL = "https://api.darksky.net/forecast/bec279e1003d1670b56ac052aeafb185/33.116455,-96.884606"
+def tempMetric(aLat,aLon):
+    URL = "https://api.darksky.net/forecast/bec279e1003d1670b56ac052aeafb185/"+aLat+","+aLon
+    print(URL)
     r = requests.get(url = URL)
     data = r.json()
     temp = data["currently"]["temperature"]
     print('Current Temperature ['+str(temp)+']')
     return temp
+
+sensors = []
+sensors.append(sensor("33.116455","-96.884606","Frisco"))
+sensors.append(sensor("29.8549287","-89.9906253","Phillips66_Refinery_Alliance-Belle_Chasse"))
+sensors.append(sensor("26.2078453","-91.44311888888889","Chevron-DeepWater-GulfOfMexico"))
 
 #Sellari Sandbox
 #options = {
@@ -37,17 +49,20 @@ options = {
 initialize(**options)
 
 while(True):
-    #Sensor Metric
-    api.Metric.send(
-        metric='sensor.brightness',
-        points=brightnessMetric(),
-        tags=["location:frisco"]
-    )
 
-    #Temp Metric
-    api.Metric.send(
-        metric='sensor.temperature',
-        points=tempMetric(),
-        tags=["location:frisco"]
-    )
+    for sensor in sensors:
+        print("["+sensor.location+"]")
+        #Sensor Metric
+        api.Metric.send(
+            metric='sensor.brightness',
+            points=brightnessMetric(),
+            tags=["location:"+sensor.location]
+        )
+
+        #Temp Metric
+        api.Metric.send(
+            metric='sensor.temperature',
+            points=tempMetric(sensor.lat,sensor.longitude),
+            tags=["location:"+sensor.location]
+        )
     time.sleep(10)
