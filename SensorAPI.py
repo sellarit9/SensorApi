@@ -41,13 +41,13 @@ while(True):
     api.Metric.send(
         metric='sensor.brightness',
         points=brightnessMetric(),
-        tags=["location:SellariSystemAPI"]
+        tags=["location:frisco"]
     )
 
     #Temp Metric
     api.Metric.send(
         metric='sensor.temperature',
         points=tempMetric(),
-        tags=["location:SellariSystemAPI"]
+        tags=["location:frisco"]
     )
     time.sleep(10)
