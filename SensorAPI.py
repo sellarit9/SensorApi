@@ -22,9 +22,16 @@ def tempMetric():
     print('Current Temperature ['+str(temp)+']')
     return temp
 
+#Sellari Sandbox
+#options = {
+ #   'api_key': '2941097c17d0de885520f96439be776b',
+  #  'app_key': '50cc6a742a2d7f3cfcda99a54e8bc932ced548c7'
+#}
+
+#Jonathon Slalom
 options = {
-    'api_key': '2941097c17d0de885520f96439be776b',
-    'app_key': '50cc6a742a2d7f3cfcda99a54e8bc932ced548c7'
+    'api_key': '98a743d558114021925b5ef6a27fa47e',
+    'app_key': '77079d5f5be5e2eb293a87e0aee0e2ff82309971'
 }
 
 initialize(**options)
