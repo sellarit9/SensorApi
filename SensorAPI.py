@@ -11,6 +11,7 @@ def brightnessMetric():
     if randint(0,20) == 7:
         metric = 0
 
+    print('Current Brightness['+str(metric)+']')
     return metric
 
 def tempMetric():
@@ -28,7 +29,7 @@ options = {
 
 initialize(**options)
 
-while(true):
+while(True):
     #Sensor Metric
     api.Metric.send(
         metric='sensor.brightness',
