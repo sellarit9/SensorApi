@@ -48,7 +48,8 @@ options = {
 
 initialize(**options)
 
-while(True):
+i=0
+while(i<13):
 
     for sensor in sensors:
         print("["+sensor.location+"]")
@@ -65,4 +66,5 @@ while(True):
             points=tempMetric(sensor.lat,sensor.longitude),
             tags=["location:"+sensor.location]
         )
-    time.sleep(10)
+    time.sleep(2)
+    i+=1
